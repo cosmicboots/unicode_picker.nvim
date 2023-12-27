@@ -8,11 +8,13 @@ local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
 M.unicode_chars = function(opts)
+    local initial_mode = vim.api.nvim_get_mode()
     opts = opts or themes.get_cursor()
+    local chars = require("unicode_picker.chars")
     return pickers.new(opts, {
-        prompt_title = "Pick a thing",
+        prompt_title = "Pick a unicode character",
         finder = finders.new_table({
-            results = require("unicode_picker.chars"),
+            results = chars(),
             entry_maker = function(entry)
                 return {
                     value = entry,
@@ -23,12 +25,17 @@ M.unicode_chars = function(opts)
             end
         }),
         sorter = conf.generic_sorter(opts),
-        attach_mappings = function(prompt_bufnr, map)
+        attach_mappings = function(prompt_bufnr, _)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = action_state.get_selected_entry().value
-                vim.api.nvim_put({ selection[1] }, "", false, true)
-                vim.api.nvim_input("a") -- hack to get back into insert mode
+                vim.schedule(function()
+                    -- Return to insert mode if we started there
+                    if initial_mode.mode == "i" then
+                        vim.cmd("startinsert")
+                    end
+                    vim.api.nvim_put({ selection[1] }, "", false, true)
+                end)
             end)
             return true
         end,

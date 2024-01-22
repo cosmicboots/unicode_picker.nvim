@@ -9,7 +9,10 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 ```lua
 {
     "cosmicboots/unicode_picker.nvim",
-    dependencies = { "uga-rosa/utf8.nvim" },
+    dependencies = {
+        "uga-rosa/utf8.nvim",
+        "nvim-telescope/telescope.nvim",
+    },
 }
 ```
 
@@ -17,7 +20,10 @@ Using [packer.nvim](https://github.com/wbthomason/packer.nvim):
 ```lua
 use {
     "cosmicboots/unicode_picker.nvim",
-    requires = { "uga-rosa/utf8.nvim" },
+    requires = {
+        "uga-rosa/utf8.nvim"
+        "nvim-telescope/telescope.nvim",
+    },
 }
 ```
 

@@ -29,13 +29,12 @@ M.unicode_chars = function(opts)
             actions.select_default:replace(function()
                 actions.close(prompt_bufnr)
                 local selection = action_state.get_selected_entry().value
-                vim.schedule(function()
-                    -- Return to insert mode if we started there
-                    if initial_mode.mode == "i" then
-                        vim.cmd("startinsert")
-                    end
-                    vim.api.nvim_put({ selection[1] }, "", false, true)
-                end)
+                -- Return to insert mode if we started there
+                if initial_mode.mode == "i" then
+                    vim.api.nvim_feedkeys("a", "i", false)
+                end
+
+                vim.api.nvim_put({ selection[1] }, "c", false, true)
             end)
             return true
         end,

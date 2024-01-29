@@ -1,3 +1,4 @@
+--- Gets a list of all unicode characters human descriptions from the Unicode consortium
 return function()
     local data_path = vim.fn.stdpath("data")
     local file_name = "NamesList.txt"

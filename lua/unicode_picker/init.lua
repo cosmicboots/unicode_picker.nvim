@@ -7,6 +7,19 @@ local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
+--- Get the digraph for a given character
+--- @param char string
+--- @return string
+local function get_digraph(char)
+    local digs = vim.fn.digraph_getlist(true)
+    for _, dig in ipairs(digs) do
+        if dig[2] == char then
+            return dig[1]
+        end
+    end
+    return ""
+end
+
 M.unicode_chars = function(opts)
     local initial_mode = vim.api.nvim_get_mode()
     opts = opts or themes.get_cursor()
@@ -35,6 +48,8 @@ M.unicode_chars = function(opts)
                 end
 
                 vim.api.nvim_put({ selection[1] }, "c", false, true)
+                print("Digraph for " .. selection[1] .. " is " ..
+                    get_digraph(selection[1]))
             end)
             return true
         end,

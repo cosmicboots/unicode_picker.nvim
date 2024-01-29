@@ -49,7 +49,7 @@ M.unicode_chars = function(opts)
 
                 vim.api.nvim_put({ selection[1] }, "c", false, true)
                 vim.api.nvim_notify("Digraph for " .. selection[1] .. " is " ..
-                    get_digraph(selection[1]), 1, {})
+                    get_digraph(selection[1]), vim.log.levels.INFO, {})
             end)
             return true
         end,

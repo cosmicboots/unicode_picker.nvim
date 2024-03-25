@@ -21,7 +21,7 @@ Using [packer.nvim](https://github.com/wbthomason/packer.nvim):
 use {
     "cosmicboots/unicode_picker.nvim",
     requires = {
-        "uga-rosa/utf8.nvim"
+        "uga-rosa/utf8.nvim",
         "nvim-telescope/telescope.nvim",
     },
 }

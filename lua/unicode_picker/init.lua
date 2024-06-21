@@ -7,20 +7,36 @@ local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
+---Table mapping unicode caracter to it's vim digraph
+local digraph_map = {}
 
+---Open telescope picker for unicode characters
 M.unicode_chars = function(opts)
     local initial_mode = vim.api.nvim_get_mode()
     opts = opts or themes.get_cursor()
+
     local chars = require("unicode_picker.chars")
     return pickers.new(opts, {
         prompt_title = "Pick a unicode character",
         finder = finders.new_table({
             results = chars(),
             entry_maker = function(entry)
+                local desc = table.concat(entry, " ", 2)
+
+                local dg = digraph_map[entry[1]]
+
+                local display_text = ""
+                if dg ~= nil then
+                    display_text = string.format("[%s] (%s): %s",
+                        entry[1], dg, desc)
+                else
+                    display_text = string.format("[%s]: %s",
+                        entry[1], desc)
+                end
+
                 return {
                     value = entry,
-                    display = "[" .. entry[1] .. "]: " ..
-                        table.concat(entry, " ", 2),
+                    display = display_text,
                     ordinal = table.concat(entry, " ", 2),
                 }
             end

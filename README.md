@@ -39,5 +39,27 @@ the following:
 
 ```lua
 local unicode_picker = require("unicode_picker")
+unicode_picker.setup()
 vim.keymap.set("i", "<C-j>", unicode_picker.unicode_chars, {})
+```
+
+### Digraph Support
+
+The drop-down picker will attempt to show vim
+[digraphs](https://neovim.io/doc/user/digraph.html) alongside their Unicode
+representation.
+
+For example, the for all symbol (∀) uses the `FA` digraph:
+
+```
+1   _⤶
+~   ╭────────────────────────── Pick a unicode character ──────────────────────────╮
+~   │> forall|                                                          380 / 29974│
+~   ├──────────────────────────────────────────────────────────────────────────────┤
+~   │> [∀] (FA): 2200 FOR ALL universal quantifier                                 │
+~   │  [䷈]: 4DC8 HEXAGRAM FOR SMALL TAMING                                         │
+~   │  [䷽]: 4DFD HEXAGRAM FOR SMALL PREPONDERANCE                                  │
+~   │  [ᴰ]: 1D30  TETRAGRAM FOR KEEPING SMALL                                      │
+~   │  [ὒ]: 1F52  INPUT SYMBOL FOR LATIN SMALL LETTERS                             │
+~   ╰──────────────────────────────────────────────────────────────────────────────╯
 ```

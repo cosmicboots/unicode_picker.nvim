@@ -4,7 +4,21 @@ A Unicode picker for [telescope.nvim](https://github.com/nvim-telescope/telescop
 
 ## Installation
 
-Using [lazy.nvim](https://github.com/folke/lazy.nvim):
+Using [lazy.nvim](https://github.com/folke/lazy.nvim) with
+[Luarocks](https://luarocks.org/) support (version 11.x):
+
+```lua
+{
+    "cosmicboots/unicode_picker.nvim",
+    dependencies = {
+        "nvim-telescope/telescope.nvim",
+    },
+    config = true,
+}
+```
+
+Using [lazy.nvim](https://github.com/folke/lazy.nvim) without Luarocks (before
+11.x):
 
 ```lua
 {
